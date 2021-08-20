@@ -38,6 +38,8 @@ Voice commands:
 
 4 - restart - restarts the game
 
-!!! This project uses native voice recognition, seems like it requires some time to be loaded however I was yet able to find a way to track when it was loaded. It can take up to a minute to load and you can check if recognition started if by pronouncing words you receive output in the console.![image](https://user-images.githubusercontent.com/40671175/130277154-1baea5ad-0335-4a5b-bf24-963334dbcf76.png)
+!!! This project uses native Chrome voice recognition, seems like it requires some time to be loaded however I was yet able to find a way to track when it was loaded. It can take up to a minute to load and you can check if recognition started if by pronouncing words you receive output in the console. By playing game on other browsers voice might not be suported![image](https://user-images.githubusercontent.com/40671175/130277154-1baea5ad-0335-4a5b-bf24-963334dbcf76.png)
+
+!!! Camera might not work if you have other pages with camera input open.
 
 
