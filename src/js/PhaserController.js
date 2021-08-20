@@ -49,7 +49,8 @@ class Menu extends Phaser.Scene {
 	}
 
 	create() {
-		this.introText = this.add.text(this.center.x, this.center.y, 'Click me in order to start or say start when' +
+		this.introText = this.add.text(this.center.x / 2, this.center.y, 'Click me in order to start or say start' +
+			' when' +
 			' voice recognition is ready');
 		this.introText.setInteractive();
 		this.introText.on('pointerdown', () => {
