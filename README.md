@@ -4,8 +4,10 @@ University project - multimodal game
 Installation:
 1 - To be able to edit the project you would require Node.js (https://nodejs.org/en/download/)
 This project was built on Node version 14.15.4 so it is better to have the same or version which is not radically different
+
 2 - Once the project is downloaded to be able to use it you will need to run "npm install" in the directory so all dependencies will be installed.
-3 - After successful installation, you will be able to run "npm start" which will create a local server page with the game
+
+3 - After successful installation, you will be able to run "npm start" which will create a local server page with the game and "npm build" which will create build of the project in the dist folder.
 
 Notes:
 1 - After downloading the project all sources will be located in MultimodalGame/src/
