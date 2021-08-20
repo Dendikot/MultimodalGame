@@ -1,6 +1,8 @@
 # MultimodalGame
 University project - multimodal game
 
+Link to a builded version https://dendikot.github.io./
+
 Installation:
 
 1 - To be able to edit the project you would require Node.js (https://nodejs.org/en/download/)
