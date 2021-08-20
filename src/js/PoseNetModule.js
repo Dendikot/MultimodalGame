@@ -16,6 +16,7 @@ export default class PoseNetModule {
 				this.phaserManager.init(
 					this.cameraController.webCamElement.videoWidth,
 					this.cameraController.webCamElement.videoHeight);
+				console.log("posenet is ready");
 				this._estimatePose();
 			});
 		});

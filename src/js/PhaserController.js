@@ -9,8 +9,8 @@ export default class PhaserController {
 	init(width, height){
 		var config = {
 			type: Phaser.AUTO,
-			width: width,
-			height: height,
+			width: 1280,
+			height: 960,
 			physics: {
 				default: 'matter',
 				matter: {
@@ -21,10 +21,12 @@ export default class PhaserController {
 				Menu, Game
 			],
 			parent: "phaser-element",
+			autoCenter: Phaser.Scale.CENTER_BOTH,
 			transparent: true
 		};
 		this.game = new Phaser.Game(config);
 		this.game.config.bodyPositions = {"leftHand": {x: 0, y: 0}, "rightHand": {x: 0, y: 0}};
+		console.log("Phaser is ready");
 	}
 }
 
@@ -73,6 +75,7 @@ class Game extends Phaser.Scene {
 
 	init() {
 		this.balls = [];
+		this.maximumVelocity = 20;
 	}
 
 	preload() {
@@ -98,16 +101,17 @@ class Game extends Phaser.Scene {
 		this.matter.add.gameObject(gate1);
 		gate1.setStatic(true);
 		gate1.body.onCollideCallback = (e) => {
-			if (e.bodyB.label === "Circle Body") {
+			if (e.bodyA.label === "Circle Body" || e.bodyB.label === "Circle Body" ) {
 				this._addGoal("gate1");
 			}
 		};
+		//check distance its better
 
 		const gate2 = this.add.rectangle(this.gameWidth - borderScale, this.gameHeight / 2, 25, 100, 0xFF0000);
 		this.matter.add.gameObject(gate2);
 		gate2.setStatic(true);
 		gate2.body.onCollideCallback = (e) => {
-			if (e.bodyB.label === "Circle Body") {
+			if (e.bodyA.label === "Circle Body" || e.bodyB.label === "Circle Body" ) {
 				this._addGoal("gate2");
 			}
 		};
@@ -137,9 +141,16 @@ class Game extends Phaser.Scene {
 
 	_checkOutOfBounds() {
 		for (let i = 0; i < this.balls.length; i++) {
-			if (this.balls[i].x < 0 || this.balls[0].x > this.gameWidth ||
-				this.balls[i].y < 0 || this.balls[i].y > this.gameHeight) {
-				this.balls[i].setPosition(this.gameWidth / 2, this.gameHeight / 2);
+			const ball = this.balls[i];
+			if (ball.x < 0 || ball.x > this.gameWidth ||
+				ball.y < 0 || ball.y > this.gameHeight) {
+				ball.setPosition(this.gameWidth / 2, this.gameHeight / 2);
+			}
+			if (ball.body.velocityX > this.maximumVelocity) {
+				ball.body.setVelocityX(ball.body.velocityX * 0.8);
+			}
+			if (ball.body.velocityY > this.maximumVelocity) {
+				ball.body.setVelocityY(ball.body.velocityY * 0.8);
 			}
 		}
 	}
@@ -147,14 +158,14 @@ class Game extends Phaser.Scene {
 	//border + size + git
 
 	_createHands() {
-		this.leftHand = this.add.rectangle(10, 10, 25, 100, 0x6666ff);
+		this.leftHand = this.add.rectangle(10, 10, 25, 100, 0xc8a2c8);
 		this.matter.add.gameObject(this.leftHand);
 		// this.leftHand.body.isStatic = true;
 		this.leftHand.setMass(60);
 		this.leftHand.setBounce(1);
 		this.leftHand.body.id = "leftHand";
 
-		this.rightHand = this.add.rectangle(10, 10, 25, 100, 0x6666ff);
+		this.rightHand = this.add.rectangle(10, 10, 25, 100, 0x00FF00);
 		this.matter.add.gameObject(this.rightHand);
 		// this.leftHand.body.isStatic = true;
 		this.rightHand.setMass(60);
@@ -163,7 +174,7 @@ class Game extends Phaser.Scene {
 	}
 
 	createBall() {
-		const ball = this.add.circle(200, 200, 22, 0x6666ff);
+		const ball = this.add.circle(this.gameWidth/2, this.gameHeight/2, 22, 0x6666ff);
 		this.matter.add.gameObject(ball);
 		ball.setBody({
 			type: 'circle',

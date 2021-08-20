@@ -24,6 +24,7 @@ export default class CameraController {
 						})
 					})
 					.then(() => {
+						console.log("camera is ready");
 						resolve();
 					})
 					.catch((err0r) => {
@@ -37,10 +38,9 @@ export default class CameraController {
 
 	// Method to retreive the screenshot from camera and later to be processed by poseNet
 	getScreenshot() {
-		this.videoRenderCanvas.width = this.webCamElement.videoWidth;
-		this.videoRenderCanvas.height = this.webCamElement.videoHeight;
-		this.videoRenderCanvasCtx.drawImage(this.webCamElement, 0, 0);
-
+		this.videoRenderCanvas.width = 1280;
+		this.videoRenderCanvas.height = 960;
+		this.videoRenderCanvasCtx.drawImage(this.webCamElement, 0, 0, 1280, 960);
 		return this.videoRenderCanvas;
 	}
 }
